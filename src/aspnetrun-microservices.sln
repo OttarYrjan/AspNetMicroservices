@@ -3,9 +3,45 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F5A5EBD2-D606-492A-A826-2949FDACC6BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{A517FB11-342E-4A4C-BDAA-46CE1BB76CE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{A1DBBA46-7CEF-4682-90D7-AE3B051F996A}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5AE2D80C-AF54-4B54-AF54-481333304B8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{A435309A-86B1-4DAB-A4F4-4ED4C2BA35A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{74057E93-4C10-4288-BA83-D3F717914012}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1DBBA46-7CEF-4682-90D7-AE3B051F996A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1DBBA46-7CEF-4682-90D7-AE3B051F996A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1DBBA46-7CEF-4682-90D7-AE3B051F996A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1DBBA46-7CEF-4682-90D7-AE3B051F996A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AE2D80C-AF54-4B54-AF54-481333304B8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AE2D80C-AF54-4B54-AF54-481333304B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AE2D80C-AF54-4B54-AF54-481333304B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AE2D80C-AF54-4B54-AF54-481333304B8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74057E93-4C10-4288-BA83-D3F717914012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74057E93-4C10-4288-BA83-D3F717914012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74057E93-4C10-4288-BA83-D3F717914012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74057E93-4C10-4288-BA83-D3F717914012}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A517FB11-342E-4A4C-BDAA-46CE1BB76CE7} = {F5A5EBD2-D606-492A-A826-2949FDACC6BB}
+		{A1DBBA46-7CEF-4682-90D7-AE3B051F996A} = {A517FB11-342E-4A4C-BDAA-46CE1BB76CE7}
+		{A435309A-86B1-4DAB-A4F4-4ED4C2BA35A8} = {F5A5EBD2-D606-492A-A826-2949FDACC6BB}
+		{74057E93-4C10-4288-BA83-D3F717914012} = {A435309A-86B1-4DAB-A4F4-4ED4C2BA35A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0864FCEA-D285-4786-82AF-6B2740320EB9}
