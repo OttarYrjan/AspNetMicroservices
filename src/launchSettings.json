@@ -1,0 +1,34 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "basket.api": "StartDebugging",
+        "basketdb": "StartWithoutDebugging",
+        "catalog.api": "StartDebugging",
+        "catalogdb": "StartWithoutDebugging",
+        "discount.api": "StartDebugging",
+        "discountdb": "StartWithoutDebugging",
+        "pgadmin": "StartWithoutDebugging",
+        "portainer": "StartWithoutDebugging",
+        "discount.grpc": "StartDebugging"
+      }
+    },
+    "postgres": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "basket.api": "DoNotStart",
+        "basketdb": "StartWithoutDebugging",
+        "catalog.api": "DoNotStart",
+        "catalogdb": "DoNotStart",
+        "discount.api": "DoNotStart",
+        "discountdb": "StartWithoutDebugging",
+        "pgadmin": "StartWithoutDebugging",
+        "portainer": "DoNotStart",
+        "discount.grpc": "StartDebugging"
+      }
+    }
+  }
+}
