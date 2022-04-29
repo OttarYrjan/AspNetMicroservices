@@ -1,23 +1,31 @@
+using Ordering.API;
+using Ordering.API.Extensions;
+using Ordering.Infrastructure.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Manually create an instance of the Startup class
+var startup = new Startup(builder.Configuration);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Manually call ConfigureServices()
+startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Fetch all the dependencies from the DI container 
+// var hostLifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+// As pointed out by DavidFowler, IHostApplicationLifetime is exposed directly on ApplicationBuilder
+
+// Call Configure(), passing in the dependencies
+startup.Configure(app, app.Environment);
+
+var host = Host.CreateDefaultBuilder().Build();
+host.MigrateDatabase<OrderContext>((context, services) =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseAuthorization();
-
-app.MapControllers();
+    var logger = services.GetService<ILogger<OrderContextSeed>>();
+    OrderContextSeed
+        .SeedAsync(context, logger)
+        .Wait();
+});
 
 app.Run();
