@@ -24,3 +24,5 @@ namespace Ordering.Domain.Entities
         public int PaymentMethod { get; set; }
     }
 }
+
+//new Order() { UserName = "swn", FirstName = "Mehmet", LastName = "Ozkaya", EmailAddress = "ezozkme@gmail.com", AddressLine = "Bahcelievler", Country = "Turkey", TotalPrice = 350 }

@@ -1,31 +1,36 @@
-using Ordering.API;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using Ordering.API.Extensions;
 using Ordering.Infrastructure.Persistence;
 
-var builder = WebApplication.CreateBuilder(args);
+using Common.Logging;
 
-// Manually create an instance of the Startup class
-var startup = new Startup(builder.Configuration);
-
-// Manually call ConfigureServices()
-startup.ConfigureServices(builder.Services);
-
-var app = builder.Build();
-
-// Fetch all the dependencies from the DI container 
-// var hostLifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
-// As pointed out by DavidFowler, IHostApplicationLifetime is exposed directly on ApplicationBuilder
-
-// Call Configure(), passing in the dependencies
-startup.Configure(app, app.Environment);
-
-var host = Host.CreateDefaultBuilder().Build();
-host.MigrateDatabase<OrderContext>((context, services) =>
+namespace Ordering.API
 {
-    var logger = services.GetService<ILogger<OrderContextSeed>>();
-    OrderContextSeed
-        .SeedAsync(context, logger)
-        .Wait();
-});
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args)
+                .Build()
+                .MigrateDatabase<OrderContext>((context, services) =>
+                {
+                    var logger = services.GetService<ILogger<OrderContextSeed>>();
+                    OrderContextSeed
+                        .SeedAsync(context, logger)
+                        .Wait();
+                })
+                .Run();
+        }
 
-app.Run();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                //.UseSerilog(SeriLogger.Configure)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
+}

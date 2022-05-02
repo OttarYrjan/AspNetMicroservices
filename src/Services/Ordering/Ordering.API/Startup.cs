@@ -1,5 +1,6 @@
-
+//using EventBus.Messages.Common;
 //using HealthChecks.UI.Client;
+//using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -7,8 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+//using Ordering.API.EventBusConsumer;
 using Ordering.Application;
 using Ordering.Infrastructure;
+using Ordering.Infrastructure.Persistence;
 
 namespace Ordering.API
 {
@@ -27,6 +30,24 @@ namespace Ordering.API
             services.AddApplicationServices();
             services.AddInfrastructureServices(Configuration);
 
+            // MassTransit-RabbitMQ Configuration
+            //services.AddMassTransit(config => {
+
+            //    config.AddConsumer<BasketCheckoutConsumer>();
+
+            //    config.UsingRabbitMq((ctx, cfg) => {
+            //        cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+            //        cfg.UseHealthCheck(ctx);
+
+            //        cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
+            //            c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
+            //        });
+            //    });
+            //});
+            //services.AddMassTransitHostedService();
+
+            //// General Configuration
+            //services.AddScoped<BasketCheckoutConsumer>();
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
@@ -36,7 +57,7 @@ namespace Ordering.API
             });
 
             //services.AddHealthChecks()
-            //    .AddNpgSql(Configuration["DatabaseSettings:ConnectionString"]);
+            //        .AddDbContextCheck<OrderContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +67,7 @@ namespace Ordering.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Discount.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ordering.API v1"));
             }
 
             app.UseRouting();
