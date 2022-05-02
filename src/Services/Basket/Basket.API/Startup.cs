@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using MassTransit;
+
 namespace Basket.API
 {
     public class Startup
@@ -48,13 +50,17 @@ namespace Basket.API
             services.AddScoped<DiscountGrpcService>();
 
             // MassTransit-RabbitMQ Configuration
-            //services.AddMassTransit(config => {
-            //    config.UsingRabbitMq((ctx, cfg) => {
-            //        cfg.Host(Configuration["EventBusSettings:HostAddress"]);
-            //        cfg.UseHealthCheck(ctx);
-            //    });
-            //});
+            services.AddMassTransit(config =>
+            {
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    //cfg.UseHealthCheck(ctx);
+                });
+            });
             //services.AddMassTransitHostedService();
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

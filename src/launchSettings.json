@@ -4,15 +4,18 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "basket.api": "StartDebugging",
+        "basket.api": "DoNotStart",
         "basketdb": "StartWithoutDebugging",
-        "catalog.api": "StartDebugging",
-        "catalogdb": "StartWithoutDebugging",
-        "discount.api": "StartDebugging",
+        "catalog.api": "DoNotStart",
+        "catalogdb": "DoNotStart",
+        "discount.api": "DoNotStart",
         "discountdb": "StartWithoutDebugging",
-        "pgadmin": "StartWithoutDebugging",
+        "pgadmin": "DoNotStart",
         "portainer": "StartWithoutDebugging",
-        "discount.grpc": "StartDebugging"
+        "discount.grpc": "DoNotStart",
+        "orderdb": "StartWithoutDebugging",
+        "ordering.api": "DoNotStart",
+        "rabbitmq": "StartWithoutDebugging"
       }
     },
     "postgres": {
@@ -25,9 +28,12 @@
         "catalogdb": "DoNotStart",
         "discount.api": "DoNotStart",
         "discountdb": "StartWithoutDebugging",
-        "pgadmin": "StartWithoutDebugging",
-        "portainer": "DoNotStart",
-        "discount.grpc": "StartDebugging"
+        "pgadmin": "DoNotStart",
+        "portainer": "StartWithoutDebugging",
+        "discount.grpc": "DoNotStart",
+        "orderdb": "StartWithoutDebugging",
+        "ordering.api": "DoNotStart",
+        "rabbitmq": "StartWithoutDebugging"
       }
     }
   }

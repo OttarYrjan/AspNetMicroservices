@@ -1,8 +1,10 @@
 ﻿
+using AutoMapper;
 using Basket.API.Entities;
 using Basket.API.GrpcServices;
 using Basket.API.Repositories.Interfaces;
-
+using EventBus.Messages.Events;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -16,15 +18,16 @@ namespace Basket.API.Controllers
     {
         private readonly IBasketRepository _repository;
         private readonly DiscountGrpcService _discountGrpcService;
-        //private readonly IPublishEndpoint _publishEndpoint;
-        //private readonly IMapper _mapper;
+        private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
 
 
-        public BasketController(IBasketRepository repository, DiscountGrpcService discountGrpcService)
+        public BasketController(IBasketRepository repository, DiscountGrpcService discountGrpcService, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _discountGrpcService = discountGrpcService ?? throw new ArgumentNullException(nameof(discountGrpcService));
-
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         //public BasketController(IBasketRepository repository, DiscountGrpcService discountGrpcService, IPublishEndpoint publishEndpoint, IMapper mapper)
@@ -84,9 +87,9 @@ namespace Basket.API.Controllers
             }
 
             // send checkout event to rabbitmq
-            //var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
-            //eventMessage.TotalPrice = basket.TotalPrice;
-            //await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
+            var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+            eventMessage.TotalPrice = basket.TotalPrice;
+            await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
 
             // remove the basket
             await _repository.DeleteBasket(basket.UserName);
