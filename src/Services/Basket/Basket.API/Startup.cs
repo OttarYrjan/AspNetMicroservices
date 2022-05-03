@@ -50,6 +50,8 @@ namespace Basket.API
             services.AddScoped<DiscountGrpcService>();
 
             // MassTransit-RabbitMQ Configuration
+            //services.AddSingleton<IHostedService, BusService>();
+
             services.AddMassTransit(config =>
             {
                 config.UsingRabbitMq((ctx, cfg) =>
