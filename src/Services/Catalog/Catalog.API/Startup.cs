@@ -1,5 +1,6 @@
 using Catalog.API.Data;
 using Catalog.API.Data.Interfaces;
+using Catalog.API.Middelwares;
 using Catalog.API.Repositories;
 using Catalog.API.Repositories.Interfaces;
 using HealthChecks.UI.Client;
@@ -34,11 +35,30 @@ namespace Catalog.API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.API", Version = "v1" });
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri("https://localhost:4000/connect/authorize"),
+                            TokenUrl = new Uri("https://localhost:4000/connect/token"),
+                            Scopes = new Dictionary<string, string> 
+                            {
+                                {"catalog.api", "Demo API - full access"}
+                            }
+                        }
+                    }
+                   });
+                c.OperationFilter<AuthorizeCheckOperationFilter>();
             });
 
             services.AddAuthentication("Bearer")
                    .AddJwtBearer("Bearer", options =>
                    {
+                       //options.Audience = "catalog.api";
+
                        options.Authority = "https://localhost:4000";
                        options.TokenValidationParameters = new TokenValidationParameters
                        {
@@ -48,7 +68,7 @@ namespace Catalog.API
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "catalog.client", "catalog.mvc.client"));
+                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "catalog.client", "catalog.mvc.client", "catalog.swagger.client"));
             });
 
             services.AddHealthChecks()
@@ -62,8 +82,23 @@ namespace Catalog.API
             //{
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.API v1"));
-            //}
+
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.API v1");
+
+                    options.OAuthClientId("catalog.swagger.client");
+                    options.OAuthAppName("Demo API - Swagger");
+                    options.OAuthUsePkce();
+                });
+
+            //app.UseSwaggerUI(option =>
+            //    option.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.API v1"));
+
+
+
+
+
 
             app.UseRouting();
 

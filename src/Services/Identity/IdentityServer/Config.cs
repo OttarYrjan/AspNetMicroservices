@@ -22,6 +22,20 @@ namespace IdentityServer
                         },
                         AllowedScopes = { "catalog.api" }
                    },
+                    new Client
+                    {
+                        ClientId = "catalog.swagger.client",
+                        ClientName = "Swagger UI for demo_api",
+                        ClientSecrets = { new Secret("secret".Sha256())}, // change me!
+
+                        AllowedGrantTypes = GrantTypes.Code,
+                        RequirePkce = true,
+                        RequireClientSecret = false,
+
+                        RedirectUris = {"https://localhost:5000/swagger/oauth2-redirect.html"},
+                        AllowedCorsOrigins = {"https://localhost:5000"},
+                        AllowedScopes = { "catalog.api" }
+                    },
                       new Client
                    {
                        ClientId = "catalog.mvc.client",
