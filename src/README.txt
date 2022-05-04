@@ -37,6 +37,10 @@ POSTGRES URL:	http://localhost:5050
 REDIS:			docker exec -it <container> redis-cli
 PORTAINER:		http://localhost:9000
 
+
+https://jsonformatter.org/
+https://jwt.io/
+
 TEST:
 	POST Basket - Discount (Grpc) - MSQ - Order (userName)
 
