@@ -1,4 +1,5 @@
 ﻿using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System.Collections.Generic;
@@ -21,6 +22,36 @@ namespace IdentityServer
                         },
                         AllowedScopes = { "catalog.api" }
                    },
+                      new Client
+                   {
+                       ClientId = "catalog.mvc.client",
+                       ClientName = "Catalog MVC Web App",
+                       AllowedGrantTypes = GrantTypes.Code,
+                       RequirePkce = false,
+                       AllowRememberConsent = false,
+                       RedirectUris = new List<string>()
+                       {
+                           "https://localhost:5800/signin-oidc"
+                       },
+                       PostLogoutRedirectUris = new List<string>()
+                       {
+                           "https://localhost:5800/signout-callback-oidc"
+                       },
+                       ClientSecrets = new List<Secret>
+                       {
+                           new Secret("secret".Sha256())
+                       },
+                       AllowedScopes = new List<string>
+                       {
+                           IdentityServerConstants.StandardScopes.OpenId,
+                           IdentityServerConstants.StandardScopes.Profile,
+                           //IdentityServerConstants.StandardScopes.Address,
+                           //IdentityServerConstants.StandardScopes.Email,
+                           // "roles",
+                           "catalog.api"
+                          
+                       }
+                   }
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -33,7 +64,17 @@ namespace IdentityServer
             new ApiResource[] { };
 
         public static IEnumerable<IdentityResource> IdentityResources =>
-            new IdentityResource[] { };
+          new IdentityResource[]
+          {
+              new IdentityResources.OpenId(),
+              new IdentityResources.Profile(),
+              //new IdentityResources.Address(),
+              //new IdentityResources.Email(),
+              //new IdentityResource(
+              //      "roles",
+              //      "Your role(s)",
+              //      new List<string>() { "role" })
+            };
 
         public static List<TestUser> TestUsers => new List<TestUser>
                   {

@@ -11,6 +11,8 @@ ORDERING.API:			http://localhost:5004
 SHOPPING.AGGREGATOR:	http://localhost:5005
 OCELOT_GW:				http://localhost:5010
 
+CATALOG.CLIENT:			http://localhost:5800
+
 ** DOCKER-COMPOSE **
 CATALOG.API:			http://localhost:8000, http://localhost:8000/api/v1/Catalog
 BASKET.API:				http://localhost:8001, http://localhost:8001/api/v1/Basket

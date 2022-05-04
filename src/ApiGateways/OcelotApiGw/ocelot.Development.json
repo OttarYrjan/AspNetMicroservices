@@ -10,9 +10,12 @@
           "Port": "80"
         }
       ],
-
       "UpstreamPathTemplate": "/Catalog",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      },
       "RateLimitOptions": {
         "ClientWhitelist": [],
         "EnableRateLimiting": true,

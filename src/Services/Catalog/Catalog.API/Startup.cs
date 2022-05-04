@@ -48,7 +48,7 @@ namespace Catalog.API
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "catalog.client", "movies_mvc_client"));
+                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "catalog.client", "catalog.mvc.client"));
             });
 
             services.AddHealthChecks()
