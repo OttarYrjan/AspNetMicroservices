@@ -1,9 +1,9 @@
-{
+﻿{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:48910",
+      "applicationUrl": "http://localhost:26561",
       "sslPort": 0
     }
   },
@@ -15,20 +15,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "OcelotApiGw": {
+    "IdentityServer": {
       "commandName": "Project",
+      "dotnetRunMessages": "true",
       "launchBrowser": true,
+      "applicationUrl": "https://localhost:4000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:5010",
-      "dotnetRunMessages": "true"
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "publishAllPorts": true
+      }
     }
   }
 }

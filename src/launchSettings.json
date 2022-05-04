@@ -15,7 +15,8 @@
         "discount.grpc": "DoNotStart",
         "orderdb": "StartWithoutDebugging",
         "ordering.api": "DoNotStart",
-        "rabbitmq": "StartWithoutDebugging"
+        "rabbitmq": "StartWithoutDebugging",
+        "ocelotapigw": "StartDebugging"
       }
     },
     "postgres": {
@@ -23,17 +24,18 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "basket.api": "DoNotStart",
-        "basketdb": "StartWithoutDebugging",
+        "basketdb": "DoNotStart",
         "catalog.api": "DoNotStart",
         "catalogdb": "DoNotStart",
         "discount.api": "DoNotStart",
-        "discountdb": "StartWithoutDebugging",
+        "discountdb": "DoNotStart",
         "pgadmin": "DoNotStart",
-        "portainer": "StartWithoutDebugging",
+        "portainer": "DoNotStart",
         "discount.grpc": "DoNotStart",
-        "orderdb": "StartWithoutDebugging",
+        "orderdb": "DoNotStart",
         "ordering.api": "DoNotStart",
-        "rabbitmq": "StartWithoutDebugging"
+        "rabbitmq": "DoNotStart",
+        "ocelotapigw": "StartDebugging"
       }
     }
   }

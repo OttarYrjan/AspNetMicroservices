@@ -1,6 +1,7 @@
 ﻿using Catalog.API.Entities;
 using Catalog.API.Repositories.Interfaces;
 using DnsClient.Internal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +13,7 @@ namespace Catalog.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize("ClientIdPolicy")]
     public class CatalogController : ControllerBase
     {
         private readonly IProductRepository _repository;
@@ -22,6 +24,7 @@ namespace Catalog.API.Controllers
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
+
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
