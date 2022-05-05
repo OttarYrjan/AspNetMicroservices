@@ -11,7 +11,6 @@ ORDERING.API:			http://localhost:5004
 SHOPPING.AGGREGATOR:	http://localhost:5005
 OCELOT_GW:				http://localhost:5010
 
-CATALOG.CLIENT:			http://localhost:5800
 
 ** DOCKER-COMPOSE **
 CATALOG.API:			http://localhost:8000, http://localhost:8000/api/v1/Catalog
@@ -20,11 +19,15 @@ DISCOUNT.API:			http://localhost:8002, http://localhost:8002/api/v1/Discount
 DISCOUNT.GRPC:			http://localhost:8003
 ORDERING.API:			http://localhost:8004, http://localhost:8004/api/v1/Order
 SHOPPING.AGGREGATOR:	http://localhost:8005
+ASPNETRUNBASICS:		http://localhost:8006
 
 OCELOT_GW:				http://localhost:8010/Catalog
 						http://localhost:8010/Basket
 						http://localhost:8010/Ordering
 
+** CLIENTS **
+CATALOG.CLIENT:			http://localhost:5800
+ASPNETRUNBASICS:		http://localhost:5801
 
 
 RABBIT_MQ ADMIN:      http://localhost:15672
